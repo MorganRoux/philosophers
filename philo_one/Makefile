@@ -2,7 +2,8 @@ NAME		=	philo_one
 
 SRCS		=	srcs/main.c \
 				srcs/actions.c \
-				srcs/time.c
+				srcs/time.c \
+				srcs/init.c
 
 SRCS_PG		=	playground/main.c
 

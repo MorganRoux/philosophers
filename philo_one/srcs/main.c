@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/11 01:58:41 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/11 02:07:55 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ void			*philo_thread(void *arg)
 	gettimeofday(&tp, NULL);
 
 	p_args = (t_args *)arg;
-	// printf("--%ld %d %ld %d\n", tp.tv_sec, tp.tv_usec, p_args->started_at->tv_sec, p_args->started_at->tv_usec);
 	while (1)
 	{
 		take_fork(p_args);
 		eat(p_args);
-		// do_sleep(p_args);
-		// think(p_args);
+		do_sleep(p_args);
+		think(p_args);
 	}
 }
 
@@ -36,7 +35,6 @@ int				start_philos(t_philo *philos)
 	i = 0;
 	while (i < 4)
 	{
-		// printf("??? %ld %d\n", philos[i].args.started_at->tv_sec, philos[i].args.started_at->tv_usec);
 		pthread_create(&(philos[i].thread_id), NULL, &philo_thread, &philos[i].args);
 		i++;
 	}
@@ -69,46 +67,6 @@ int				wait_philos(t_philo *philos)
 		i++;
 	}
 	return (0);
-}
-
-t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
-{
-	int	i;
-	t_philo			*philos;
-	struct timeval	tp;
-
-	(void)argc;
-	(void)argv;
-	i = 0;
-	philos = (t_philo *) malloc(sizeof(t_philo) * 4);
-	gettimeofday(&tp, NULL);
-	while (i < 4)
-	{
-		philos[i].args.philo_number = i;
-		philos[i].args.started_at = tp.tv_sec * 1000 + tp.tv_usec / 1000;
-		philos[i].args.time_to_sleep = 1000;
-		philos[i].args.time_to_eat = 1000;
-		philos[i].args.time_to_die = 6000;
-		philos[i].args.forks[0] = &forks[(i * 2) % 4];
-		philos[i].args.forks[0] = &forks[(i * 2 + 1) % 4];
-		i++;
-	}
-	// printf("=====%ld %d %ld %d\n", tp.tv_sec, tp.tv_usec, philos[1].args.started_at->tv_sec, philos[1].args.started_at->tv_usec);
-	return (philos);
-}
-
-pthread_mutex_t	*init_forks(int argc, char *argv[])
-{
-	pthread_mutex_t	*forks;
-	int				i;
-
-	(void)argc;
-	(void)argv;
-	i = 0;
-	forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * 4);
-	while (i < 4)
-		pthread_mutex_init(&forks[i++], NULL);
-	return (forks);
 }
 
 int				main(int argc, char *argv[])
