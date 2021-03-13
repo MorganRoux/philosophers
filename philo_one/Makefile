@@ -9,7 +9,7 @@ SRCS_PG		=	playground/main.c
 
 OBJS		=	$(SRCS:.c=.o)
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -g
 INC_PATH	=	-I./incs
 COMPILE		=	$(CC) $(FLAGS) $(INC_PATH)
 

@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/11 02:07:09 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/13 18:33:42 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 typedef struct		s_args
 {
 	int				philo_number;
-	struct timeval	*last_lunch;
-	int 			time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	struct timeval	last_lunch;
+	unsigned long 	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
 	unsigned long	started_at;
 	pthread_mutex_t	*forks[2];
+	int				status;
 }					t_args;
 
 typedef struct		s_philo
@@ -43,7 +44,7 @@ unsigned long		get_relative_time_in_ms(unsigned long ref);
 pthread_mutex_t		*init_forks(int argc, char *argv[]);
 t_philo				*init_philos(int argc, char *argv[], pthread_mutex_t *forks);
 
-void				take_fork(t_args *p_args);
+void				take_forks(t_args *p_args);
 void				eat(t_args *p_args);
 void				do_sleep(t_args *p_args);
 void				think(t_args *p_args);
