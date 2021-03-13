@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/13 19:10:52 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/13 19:17:35 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ void			*philo_thread(void *arg)
 	p_args = (t_args *)arg;
 	while (p_args->status)
 	{
-		take_forks(p_args);
-		eat(p_args);
-		do_sleep(p_args);
-		think(p_args);
+		if (p_args->status)
+			take_forks(p_args);
+		if (p_args->status)
+			eat(p_args);
+		if (p_args->status)
+			do_sleep(p_args);
+		if (p_args->status)
+			think(p_args);
 	}
 	return (NULL);
 }
@@ -70,7 +74,7 @@ void			start_checker(t_philo *philos)
 			gettimeofday(&now, NULL);
 			if ((time = (timeval_to_ms(&now) - timeval_to_ms(&args.last_lunch))) >= args.time_to_die)
 			{
-				printf("%d->dtime: %lu\n", philos[i].args.philo_number, time);
+				// printf("%d->dtime: %lu\n", philos[i].args.philo_number, time);
 				print_death(args.philo_number, timeval_to_ms(&now)- args.started_at); // timeval_to_ms(&args.last_lunch) + args.time_to_die - args.started_at);
 				return ;
 			}
@@ -86,7 +90,7 @@ void			kill_philos(t_philo *philos)
 	i = 0;
 	while (i < 4)
 		philos[i++].args.status =  0;
-	printf("end");
+	// printf("end");
 	fflush(stdout);
 }
 
@@ -103,8 +107,8 @@ int				main(int argc, char *argv[])
 		return (0);
 	start_philos(philos);
 	start_checker(philos);
-	printf("hey");
-	fflush(stdout);
+	// printf("hey");
+	// fflush(stdout);
 	kill_philos(philos);
 	return (0);
 }
