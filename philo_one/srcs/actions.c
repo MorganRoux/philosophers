@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/13 19:10:47 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/13 19:14:19 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		eat(t_args *p_args)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	printf("%d: last lunch: %lu\n", p_args->philo_number, timeval_to_ms(&now) - timeval_to_ms(&p_args->last_lunch));
+	// printf("%d: last lunch: %lu\n", p_args->philo_number, timeval_to_ms(&now) - timeval_to_ms(&p_args->last_lunch));
 	printf("%lu: %d is eating.\n", get_relative_time_in_ms(p_args->started_at), p_args->philo_number);
 	//fflush(stdout);
 	log_lunch(p_args);
