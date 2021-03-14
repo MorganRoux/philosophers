@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/13 19:15:40 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 18:49:07 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
 	while (i < 4)
 	{
 		philos[i].args.philo_number = i + 1;
-		philos[i].args.time_to_sleep = 200;
+		philos[i].args.time_to_sleep = 100;
 		philos[i].args.time_to_eat = 200;
-		philos[i].args.time_to_die = 410;
+		philos[i].args.time_to_die = 310;
 		philos[i].args.forks[0] = &forks[i % 4];
 		philos[i].args.forks[1] = &forks[(i + 1) % 4];
 		philos[i].args.status = 1;

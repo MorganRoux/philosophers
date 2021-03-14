@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/13 18:33:42 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 18:46:47 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,6 @@ void				take_forks(t_args *p_args);
 void				eat(t_args *p_args);
 void				do_sleep(t_args *p_args);
 void				think(t_args *p_args);
+
+void				ft_usleep(unsigned long n);
 #endif
