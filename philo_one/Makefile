@@ -4,7 +4,9 @@ SRCS		=	srcs/main.c \
 				srcs/actions.c \
 				srcs/time.c \
 				srcs/init.c \
-				srcs/utils.c
+				srcs/utils.c \
+				srcs/ft_atoul.c \
+				srcs/parsing.c
 
 SRCS_PG		=	playground/main.c
 

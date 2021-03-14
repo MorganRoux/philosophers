@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/13 19:17:35 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:23:47 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				start_philos(t_philo *philos)
 void			print_death(int philo_number, unsigned long death_time)
 {
 	printf("Philo %d died at %lu\n",  philo_number, death_time);
-	//fflush(stdout);
+	//h(stdout);
 }
 
 void			start_checker(t_philo *philos)
@@ -90,8 +90,6 @@ void			kill_philos(t_philo *philos)
 	i = 0;
 	while (i < 4)
 		philos[i++].args.status =  0;
-	// printf("end");
-	fflush(stdout);
 }
 
 int				main(int argc, char *argv[])
@@ -101,14 +99,17 @@ int				main(int argc, char *argv[])
 	pthread_mutex_t	*forks;
 
 	i = 0;
+	if (check_vars(argc, argv) == 0)
+	{
+		printf("Parse error");
+		return (0);
+	}
 	if ((forks = init_forks(argc, argv)) == NULL)
 		return (0);
 	if ((philos = init_philos(argc, argv, forks)) == NULL)
 		return (0);
 	start_philos(philos);
 	start_checker(philos);
-	// printf("hey");
-	// fflush(stdout);
 	kill_philos(philos);
 	return (0);
 }

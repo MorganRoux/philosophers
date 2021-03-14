@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 18:46:47 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:16:35 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,46 @@ typedef struct		s_philo
 	t_args			args;
 }					t_philo;
 
-unsigned long		timeval_to_ms(struct timeval *tp);
-unsigned long		get_diff_in_ms(struct timeval *tp1, struct timeval *tp2);
-unsigned long		get_relative_time_in_ms(unsigned long ref);
+/*
+*	Init
+*/
 
 pthread_mutex_t		*init_forks(int argc, char *argv[]);
 t_philo				*init_philos(int argc, char *argv[], pthread_mutex_t *forks);
+
+/*
+*	Actions
+*/
 
 void				take_forks(t_args *p_args);
 void				eat(t_args *p_args);
 void				do_sleep(t_args *p_args);
 void				think(t_args *p_args);
 
+/*
+*	Utils
+*/
+
 void				ft_usleep(unsigned long n);
+int					ft_atoul(char const *str);
+
+/*
+*	Time
+*/
+
+unsigned long		timeval_to_ms(struct timeval *tp);
+unsigned long		get_diff_in_ms(struct timeval *tp1, struct timeval *tp2);
+unsigned long		get_relative_time_in_ms(unsigned long ref);
+
+/*
+*	Parsing
+*/
+
+int					check_vars(int argc, char *argv[]);
+int					extract_number_of_philosophers(int argc, char *argv[]);
+unsigned long		extract_time_to_die(int argc, char *argv[]);
+unsigned long		extract_time_to_eat(int argc, char *argv[]);
+unsigned long		extract_time_to_sleep(int argc, char *argv[]);
+unsigned long		extract_number_of_meals(int argc, char *argv[]);
+
 #endif
