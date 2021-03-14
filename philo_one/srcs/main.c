@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:23:47 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:42:19 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,44 @@ int				start_philos(t_philo *philos)
 void			print_death(int philo_number, unsigned long death_time)
 {
 	printf("Philo %d died at %lu\n",  philo_number, death_time);
-	//h(stdout);
 }
 
-void			start_checker(t_philo *philos)
+void			print_end(int max_meal, unsigned long end_time)
+{
+	printf("All Philosphers ate %d meals at %lu.\n",  max_meal, end_time);
+}
+
+void			start_checker(t_philo *philos, int max_meals, int number_of_philosophers)
 {
 	int				i;
 	t_args			args;
 	struct timeval	now;
 	unsigned long 	time;
+	int				status_meal;
 
 	while (1)
 	{
 		i = 0;
-		while (i < 4)
+		while (i < number_of_philosophers)
 		{
 			args = philos[i].args;
 			gettimeofday(&now, NULL);
 			if ((time = (timeval_to_ms(&now) - timeval_to_ms(&args.last_lunch))) >= args.time_to_die)
 			{
-				// printf("%d->dtime: %lu\n", philos[i].args.philo_number, time);
-				print_death(args.philo_number, timeval_to_ms(&now)- args.started_at); // timeval_to_ms(&args.last_lunch) + args.time_to_die - args.started_at);
+				print_death(args.philo_number, timeval_to_ms(&now)- args.started_at);
 				return ;
+			}
+			if (max_meals != 0)
+			{
+				if (args.meals >= max_meals)
+					status_meal++;
+				else
+					status_meal = 0;
+				if (status_meal == number_of_philosophers)
+				{
+					print_end(max_meals, timeval_to_ms(&now)- args.started_at);
+					return ;
+				}
 			}
 			i++;
 		}
@@ -109,7 +125,8 @@ int				main(int argc, char *argv[])
 	if ((philos = init_philos(argc, argv, forks)) == NULL)
 		return (0);
 	start_philos(philos);
-	start_checker(philos);
+	start_checker(philos, extract_number_of_meals(argc, argv),
+				extract_number_of_philosophers(argc, argv));
 	kill_philos(philos);
 	return (0);
 }

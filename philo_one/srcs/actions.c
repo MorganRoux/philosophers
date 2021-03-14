@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:17:42 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:31:30 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		eat(t_args *p_args)
 	//h(stdout);
 	log_lunch(p_args);
 	ft_usleep(p_args->time_to_eat * 1000);
+	p_args->meals++;
 	release_forks(p_args);
 }
 

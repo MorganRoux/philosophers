@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:53:15 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:29:38 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:38:48 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ unsigned long	extract_number_of_meals(int argc, char *argv[])
 {
 	int		n;
 
-	(void)argc;
-	n = ft_atoul(argv[5]);
+	if (argc == 6)
+		n = ft_atoul(argv[5]);
+	else
+		n = 0;
 	return (n);
 }

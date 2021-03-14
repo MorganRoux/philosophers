@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:16:35 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:31:00 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct		s_args
 {
 	int				philo_number;
 	struct timeval	last_lunch;
+	int				meals;
 	unsigned long 	time_to_die;
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
