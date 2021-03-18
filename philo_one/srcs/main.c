@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:42:19 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/18 09:39:11 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int				main(int argc, char *argv[])
 {
 	int				i;
 	t_philo			*philos;
+	// pthread_mutex_t	*forks;
 	pthread_mutex_t	*forks;
 
 	i = 0;

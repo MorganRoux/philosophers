@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:31:43 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/18 09:38:37 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
 	}
 	return (philos);
 }
+
+// pthread_mutex_t	*init_forks(int argc, char *argv[])
+// {
+// 	pthread_mutex_t	*forks;
+// 	int				i;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	i = 0;
+// 	forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * 4);
+// 	while (i < 4)
+// 		pthread_mutex_init(&forks[i++], NULL);
+// 	return (forks);
+// }
 
 pthread_mutex_t	*init_forks(int argc, char *argv[])
 {
