@@ -6,13 +6,13 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/18 09:49:27 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/18 10:19:21 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
+t_philo			*init_philos(int argc, char *argv[], sem_t *forks)
 {
 	int				i;
 	t_philo			*philos;
@@ -28,8 +28,7 @@ t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
 		philos[i].args.time_to_sleep = extract_time_to_sleep(argc, argv);
 		philos[i].args.time_to_eat = extract_time_to_eat(argc, argv);
 		philos[i].args.time_to_die = extract_time_to_die(argc, argv);
-		philos[i].args.forks[0] = &forks[i % number_of_philos];
-		philos[i].args.forks[1] = &forks[(i + 1) % number_of_philos];
+		philos[i].args.forks = forks;
 		philos[i].args.status = 1;
 		i++;
 	}
@@ -50,14 +49,10 @@ t_philo			*init_philos(int argc, char *argv[], pthread_mutex_t *forks)
 // 	return (forks);
 // }
 
-pthread_mutex_t	*init_forks(int argc, char *argv[])
+sem_t			*init_forks(int argc, char *argv[])
 {
-	pthread_mutex_t	*forks;
-	int				i;
+	sem_t	*forks;
 
-	i = 0;
-	forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * extract_number_of_philosophers(argc, argv));
-	while (i < 4)
-		pthread_mutex_init(&forks[i++], NULL);
+	forks = sem_open("philo_forks", O_CREAT, S_IRWXU, extract_number_of_philosophers(argc, argv));
 	return (forks);
 }
