@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:37:48 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:49:28 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,25 @@ int				start_philos(t_global *gl)
 	gettimeofday(&now, NULL);
 	if (!(args = (t_thread_args*)malloc(gl->number_of_philos * sizeof(t_thread_args))))
 		return (-1);
-	while (i < gl->number_of_philos)
+	while (i < (float) gl->number_of_philos / 2.0)
 	{
-		gl->philos[i].started_at = timeval_to_ms(&now);
-		gl->philos[i].last_lunch = now;
-		args[i].gl = gl;
-		args[i].philo = &gl->philos[i];
-		pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
-		pthread_detach(gl->philos[i].thread_id);
+		gl->philos[2 * i].started_at = timeval_to_ms(&now);
+		gl->philos[2 * i].last_lunch = now;
+		args[2 * i].gl = gl;
+		args[2 * i].philo = &gl->philos[2 * i];
+		pthread_create(&(gl->philos[2 * i].thread_id), NULL, &philo_thread, &args[2 * i]);
+		pthread_detach(gl->philos[2 * i].thread_id);
+		i++;
+	}
+	i = 0;
+	while (i < (float) gl->number_of_philos / 2)
+	{
+		gl->philos[2 * i + 1].started_at = timeval_to_ms(&now);
+		gl->philos[2 * i + 1].last_lunch = now;
+		args[2 * i + 1].gl = gl;
+		args[2 * i + 1].philo = &gl->philos[2 * i + 1];
+		pthread_create(&(gl->philos[2 * i + 1].thread_id), NULL, &philo_thread, &args[2 * i + 1]);
+		pthread_detach(gl->philos[2 * i + 1].thread_id);
 		i++;
 	}
 	return (0);

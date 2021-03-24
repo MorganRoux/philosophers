@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:53:15 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/20 10:58:57 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:55:55 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ int				check_vars(int argc, char *argv[])
 {
 	int		i;
 
-	i = 1;
 	if (argc  != 5 && argc != 6)
 		return (0);
-
+	i = 1;
 	while (i < argc)
 	{
-		if (!is_digit(argv[i]))
+		if (!is_digit(argv[i]) || ft_atoul(argv[i]) <= 0)
 			return (0);
 		i++;
 	}
