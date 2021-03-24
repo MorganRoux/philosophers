@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 22:42:13 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 23:03:58 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_philo			*init_philos(t_global *gl, sem_t *forks)
 
 int				init_gl(t_global *gl, int argc, char *argv[])
 {
+	pthread_mutex_init(&gl->mutex_print, NULL);
 	gl->number_of_philos = extract_number_of_philosophers(argc, argv);
 	gl->time_to_sleep = extract_time_to_sleep(argc, argv);
 	gl->time_to_eat = extract_time_to_eat(argc, argv);
