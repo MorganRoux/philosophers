@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:49:28 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 21:20:08 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void			*philo_thread(void *arg)
 	while (p_args->philo->status)
 	{
 		if (p_args->philo->status)
-			take_forks(p_args->philo, 0);
+			take_forks(p_args->philo, p_args->gl, 0);
 		if (p_args->philo->status)
-			take_forks(p_args->philo, 1);
+			take_forks(p_args->philo, p_args->gl, 1);
 		if (p_args->philo->status)
-			eat(p_args->philo, p_args->gl->time_to_eat);
+			eat(p_args->philo, p_args->gl);
 		if (p_args->philo->status)
-			do_sleep(p_args->philo,p_args->gl->time_to_sleep);
+			do_sleep(p_args->philo, p_args->gl);
 		if (p_args->philo->status)
-			think(p_args->philo);
+			think(p_args->philo, p_args->gl);
 	}
 	return (NULL);
 }
@@ -85,7 +85,7 @@ void			start_checker(t_global *gl)
 			gettimeofday(&now, NULL);
 			if ((time = (timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch))) >= gl->time_to_die)
 			{
-				print_death(gl->philos[i].philo_number, timeval_to_ms(&now)- gl->philos[i].started_at);
+				print_death(gl->philos[i].philo_number, timeval_to_ms(&now)- gl->philos[i].started_at, gl);
 				return ;
 			}
 			if (gl->number_of_meals != 0)
@@ -96,7 +96,7 @@ void			start_checker(t_global *gl)
 					status_meal = 0;
 				if (status_meal == gl->number_of_philos)
 				{
-					print_end(gl->number_of_meals, timeval_to_ms(&now)- gl->philos[i].started_at);
+					print_end(gl->number_of_meals, timeval_to_ms(&now)- gl->philos[i].started_at, gl);
 					return ;
 				}
 			}
@@ -130,5 +130,6 @@ int				main(int argc, char *argv[])
 	start_philos(&gl);
 	start_checker(&gl);
 	kill_philos(&gl);
+	pthread_mutex_unlock(&gl.mutex_print);
 	return (0);
 }

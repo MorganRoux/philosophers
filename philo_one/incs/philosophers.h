@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:37:32 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 21:18:03 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct		s_global
 	unsigned long	time_to_sleep;
 	int				number_of_philos;
 	int				number_of_meals;
+	pthread_mutex_t	mutex_print;
 }					t_global;
 
 typedef struct 		s_thread_args
@@ -60,10 +61,10 @@ t_philo				*init_philos(t_global *gl, pthread_mutex_t *forks);
 *	Actions
 */
 
-void				take_forks(t_philo *philo, int fork);
-void				eat(t_philo *philo, unsigned long time_to_eat);
-void				do_sleep(t_philo *philo, unsigned long time_to_sleep);
-void				think(t_philo *philo);
+void				take_forks(t_philo *philo, t_global *gl, int fork);
+void				eat(t_philo *philo, t_global *gl);
+void				do_sleep(t_philo *philo, t_global *gl);
+void				think(t_philo *philo, t_global *gl);
 
 /*
 *	Utils
@@ -71,8 +72,8 @@ void				think(t_philo *philo);
 
 void				ft_usleep(unsigned long n);
 int					ft_atoul(char const *str);
-void				print_death(int philo_number, unsigned long death_time);
-void				print_end(int max_meal, unsigned long end_time);
+void				print_death(int philo_number, unsigned long death_time, t_global *gl);
+void				print_end(int max_meal, unsigned long end_time, t_global *gl);
 /*
 *	Time
 */

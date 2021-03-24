@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:34:03 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 21:07:54 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int				init_gl(t_global *gl, int argc, char *argv[])
 int				init(t_global *gl, int argc, char *argv[])
 {
 	pthread_mutex_t	*forks;
+
 	if (init_gl(gl, argc, argv) == -1)
 		return (-1);
 	if ((forks = init_forks(argc, argv)) == NULL)
