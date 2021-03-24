@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 23:08:18 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 23:21:18 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,6 @@ int				main(int argc, char *argv[])
 	start_philos(&gl);
 	start_checker(&gl);
 	kill_philos(&gl);
-	pthread_mutex_unlock(&gl.mutex_print);
+	//pthread_mutex_unlock(&gl.mutex_print);
 	return (0);
 }
