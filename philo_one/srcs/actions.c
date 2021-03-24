@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 21:16:37 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 23:03:04 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void		eat(t_philo *philo, t_global *gl)
 void		do_sleep(t_philo *philo, t_global *gl)
 {
 	pthread_mutex_lock(&gl->mutex_print);
+	// ft_putnbr_fd(get_relative_time_in_ms(philo->started_at), 1);
+	// ft_putstr_fd(": ", 1);
+	// ft_putnbr_fd(philo->philo_number, 1);
+	// ft_putstr_fd(" is sleeping.\n", 1);
 	printf("%lu: %d is sleeping.\n", get_relative_time_in_ms(philo->started_at), philo->philo_number);
 	pthread_mutex_unlock(&gl->mutex_print);
 	ft_usleep(gl->time_to_sleep * 1000);

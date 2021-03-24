@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 21:18:03 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 22:53:42 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ void				ft_usleep(unsigned long n);
 int					ft_atoul(char const *str);
 void				print_death(int philo_number, unsigned long death_time, t_global *gl);
 void				print_end(int max_meal, unsigned long end_time, t_global *gl);
+
+/*
+*	Prints
+*/
+
+void 				ft_putstr_fd(char *s, int fd);
+void				ft_putnbr_fd(int n, int fd);
 /*
 *	Time
 */
