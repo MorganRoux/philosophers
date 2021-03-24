@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:53:15 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:38:48 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/20 10:58:57 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int				check_vars(int argc, char *argv[])
 
 	while (i < argc)
 	{
-		printf("%s", argv[i]);
 		if (!is_digit(argv[i]))
 			return (0);
 		i++;

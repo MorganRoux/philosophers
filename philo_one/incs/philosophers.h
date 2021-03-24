@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/14 19:31:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:33:49 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,52 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
-typedef struct		s_args
-{
-	int				philo_number;
-	struct timeval	last_lunch;
-	int				meals;
-	unsigned long 	time_to_die;
-	unsigned long	time_to_eat;
-	unsigned long	time_to_sleep;
-	unsigned long	started_at;
-	pthread_mutex_t	*forks[2];
-	int				status;
-}					t_args;
+
 
 typedef struct		s_philo
 {
 	pthread_t		thread_id;
+	int				philo_number;
+	struct timeval	last_lunch;
+	int				meals;
+	unsigned long	started_at;
+	pthread_mutex_t	*forks[2];
+	int				status;
 	void			*ret;
-	t_args			args;
 }					t_philo;
+
+typedef struct		s_global
+{
+	t_philo			*philos;
+	unsigned long 	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
+	int				number_of_philos;
+	int				number_of_meals;
+}					t_global;
+
+typedef struct 		s_thread_args
+{
+	t_global		*gl;
+	t_philo			*philo;
+}					t_thread_args;
 
 /*
 *	Init
 */
 
+int					init(t_global *gl, int argc, char *argv[]);
 pthread_mutex_t		*init_forks(int argc, char *argv[]);
-t_philo				*init_philos(int argc, char *argv[], pthread_mutex_t *forks);
+t_philo				*init_philos(t_global *gl, pthread_mutex_t *forks);
 
 /*
 *	Actions
 */
 
-void				take_forks(t_args *p_args);
-void				eat(t_args *p_args);
-void				do_sleep(t_args *p_args);
-void				think(t_args *p_args);
+void				take_forks(t_philo *philo, int fork);
+void				eat(t_philo *philo, unsigned long time_to_eat);
+void				do_sleep(t_philo *philo, unsigned long time_to_sleep);
+void				think(t_philo *philo);
 
 /*
 *	Utils
