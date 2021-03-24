@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:33:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:37:48 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,6 @@ int				start_philos(t_global *gl)
 	}
 	return (0);
 
-}
-
-void			print_death(int philo_number, unsigned long death_time)
-{
-	printf("Philo %d died at %lu\n",  philo_number, death_time);
-}
-
-void			print_end(int max_meal, unsigned long end_time)
-{
-	printf("All Philosphers ate %d meals at %lu.\n",  max_meal, end_time);
 }
 
 void			start_checker(t_global *gl)

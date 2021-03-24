@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 20:33:49 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 20:37:32 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void				think(t_philo *philo);
 
 void				ft_usleep(unsigned long n);
 int					ft_atoul(char const *str);
-
+void				print_death(int philo_number, unsigned long death_time);
+void				print_end(int max_meal, unsigned long end_time);
 /*
 *	Time
 */
