@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 23:03:04 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:52:35 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void		log_lunch(t_philo *philo)
 {
+	struct timeval save;
+
+	save = philo->last_lunch;
 	gettimeofday(&philo->last_lunch,  NULL);
+	printf("===%lu\n", get_diff_in_ms(&save, &philo->last_lunch));
 }
 
 void		take_forks(t_philo *philo, t_global *gl, int fork)
