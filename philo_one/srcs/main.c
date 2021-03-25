@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 19:26:37 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:28:05 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int				start_philos(t_global *gl)
 	{
 		if (i % 2 == 0)
 		{
-			gl->philos[2 * i].started_at = timeval_to_ms(&now);
-			gl->philos[2 * i].last_lunch = now;
-			args[2 * i].gl = gl;
-			args[2 * i].philo = &gl->philos[2 * i];
-			pthread_create(&(gl->philos[2 * i].thread_id), NULL, &philo_thread, &args[2 * i]);
-			pthread_detach(gl->philos[2 * i].thread_id);
+			gl->philos[i].started_at = timeval_to_ms(&now);
+			gl->philos[i].last_lunch = now;
+			args[i].gl = gl;
+			args[i].philo = &gl->philos[i];
+			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
+			pthread_detach(gl->philos[i].thread_id);
 		}
 		i++;
 	}
@@ -63,12 +63,12 @@ int				start_philos(t_global *gl)
 	{
 		if (i % 2 == 1)
 		{
-			gl->philos[2 * i].started_at = timeval_to_ms(&now);
-			gl->philos[2 * i].last_lunch = now;
-			args[2 * i].gl = gl;
-			args[2 * i].philo = &gl->philos[2 * i];
-			pthread_create(&(gl->philos[2 * i].thread_id), NULL, &philo_thread, &args[2 * i]);
-			pthread_detach(gl->philos[2 * i].thread_id);
+			gl->philos[i].started_at = timeval_to_ms(&now);
+			gl->philos[i].last_lunch = now;
+			args[i].gl = gl;
+			args[i].philo = &gl->philos[i];
+			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
+			pthread_detach(gl->philos[i].thread_id);
 		}
 		i++;
 	}
