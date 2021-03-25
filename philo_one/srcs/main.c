@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 20:24:56 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 20:26:01 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void			start_checker(t_global *gl)
 	long 	time;
 	int				status_meal;
 
+printf("%ld", gl->time_to_die);
 	while (1)
 	{
 		i = 0;
@@ -93,6 +94,7 @@ void			start_checker(t_global *gl)
 			time = (long) timeval_to_ms(&now) - (long) timeval_to_ms(&gl->philos[i].last_lunch);
 			if (time >= (long) gl->time_to_die)
 			{
+				printf("")
 				printf("==%lu==%lu==\n", timeval_to_ms(&now), timeval_to_ms(&gl->philos[i].last_lunch));
 				printf("==%lu==\n", timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch));
 				printf("==%ld==\n", (long)(timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch)));
