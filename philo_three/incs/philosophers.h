@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/18 10:58:17 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/24 22:17:35 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,52 @@
 # include <sys/time.h>
 # include <semaphore.h>
 
-typedef struct		s_args
-{
-	int				philo_number;
-	struct timeval	last_lunch;
-	int				meals;
-	unsigned long 	time_to_die;
-	unsigned long	time_to_eat;
-	unsigned long	time_to_sleep;
-	unsigned long	started_at;
-	sem_t			*forks;
-	int				status;
-}					t_args;
 
 typedef struct		s_philo
 {
 	pthread_t		thread_id;
+	int				philo_number;
+	struct timeval	last_lunch;
+	int				meals;
+	unsigned long	started_at;
+	sem_t			*forks;
+	int				status;
 	void			*ret;
-	t_args			args;
 }					t_philo;
 
-typedef struct		s_checker_args
+typedef struct		s_global
 {
-	int				max_meals;
-	t_args			*args;
-}					t_checker_args;
+	t_philo			*philos;
+	unsigned long 	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
+	int				number_of_philos;
+	int				number_of_meals;
+	pthread_mutex_t	mutex_print;
+}					t_global;
+
+typedef struct 		s_thread_args
+{
+	t_global		*gl;
+	t_philo			*philo;
+}					t_thread_args;
 
 /*
 *	Init
 */
 
-sem_t				*init_forks(int argc, char *argv[]);
-t_philo				*init_philos(int argc, char *argv[], sem_t *forks);
+int					init(t_global *gl, int argc, char *argv[]);
+sem_t				*init_forks(t_global *gl);
+t_philo				*init_philos(t_global *gl, sem_t *forks);
 
 /*
 *	Actions
 */
 
-int					check_status(t_args *p_args);
-void				take_forks(t_args *p_args);
-void				eat(t_args *p_args);
-void				do_sleep(t_args *p_args);
-void				think(t_args *p_args);
+void				take_forks(t_philo *philo, t_global *gl, int fork);
+void				eat(t_philo *philo, t_global *gl);
+void				do_sleep(t_philo *philo, t_global *gl);
+void				think(t_philo *philo, t_global *gl);
 
 /*
 *	Utils
@@ -68,7 +72,8 @@ void				think(t_args *p_args);
 
 void				ft_usleep(unsigned long n);
 int					ft_atoul(char const *str);
-
+void				print_death(int philo_number, unsigned long death_time, t_global *gl);
+void				print_end(int max_meal, unsigned long end_time, t_global *gl);
 /*
 *	Time
 */
