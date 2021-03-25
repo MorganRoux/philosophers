@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 19:28:05 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:30:13 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				start_philos(t_global *gl)
 			args[i].philo = &gl->philos[i];
 			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
 			pthread_detach(gl->philos[i].thread_id);
+			usleep(5);
 		}
 		i++;
 	}
@@ -69,6 +70,7 @@ int				start_philos(t_global *gl)
 			args[i].philo = &gl->philos[i];
 			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
 			pthread_detach(gl->philos[i].thread_id);
+			usleep(5);
 		}
 		i++;
 	}
