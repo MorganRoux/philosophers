@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 20:17:41 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 20:24:56 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void			start_checker(t_global *gl)
 		while (i < gl->number_of_philos)
 		{
 			gettimeofday(&now, NULL);
-			if ((time = (long) (timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch))) >= (long) gl->time_to_die)
+			time = (long) timeval_to_ms(&now) - (long) timeval_to_ms(&gl->philos[i].last_lunch);
+			if (time >= (long) gl->time_to_die)
 			{
 				printf("==%lu==%lu==\n", timeval_to_ms(&now), timeval_to_ms(&gl->philos[i].last_lunch));
 				printf("==%lu==\n", timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch));
