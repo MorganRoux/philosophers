@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 19:30:13 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:31:35 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,8 @@ void			kill_philos(t_global *gl)
 
 int				main(int argc, char *argv[])
 {
-	int				i;
 	t_global		gl;
 
-	i = 0;
 	if (check_vars(argc, argv) == 0)
 	{
 		printf("Parse error");
