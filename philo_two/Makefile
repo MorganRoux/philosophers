@@ -6,13 +6,14 @@ SRCS		=	srcs/main.c \
 				srcs/init.c \
 				srcs/utils.c \
 				srcs/ft_atoul.c \
-				srcs/parsing.c
+				srcs/parsing.c \
+				srcs/prints.c
 
 SRCS_PG		=	playground/main.c
 
 OBJS		=	$(SRCS:.c=.o)
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -g
+CC			=	clang
+FLAGS		=	-Wall -Wextra -Werror -g -pthread
 INC_PATH	=	-I./incs
 COMPILE		=	$(CC) $(FLAGS) $(INC_PATH)
 

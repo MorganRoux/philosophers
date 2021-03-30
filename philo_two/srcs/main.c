@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 23:21:18 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 20:41:16 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void			*philo_thread(void *arg)
 	}
 	sem_close(p_args->philo->forks);
 	sem_unlink("philo_forks");
+	sem_close(p_args->gl->mutex_print);
+	sem_unlink("philo_print");
 	return (NULL);
 }
 
@@ -47,25 +49,33 @@ int				start_philos(t_global *gl)
 	gettimeofday(&now, NULL);
 	if (!(args = (t_thread_args*)malloc(gl->number_of_philos * sizeof(t_thread_args))))
 		return (-1);
-	while (i < (float) gl->number_of_philos / 2.0)
+	while (i < gl->number_of_philos)
 	{
-		gl->philos[2 * i].started_at = timeval_to_ms(&now);
-		gl->philos[2 * i].last_lunch = now;
-		args[2 * i].gl = gl;
-		args[2 * i].philo = &gl->philos[2 * i];
-		pthread_create(&(gl->philos[2 * i].thread_id), NULL, &philo_thread, &args[2 * i]);
-		pthread_detach(gl->philos[2 * i].thread_id);
+		if (i % 2 == 0)
+		{
+			gl->philos[i].started_at = timeval_to_ms(&now);
+			gl->philos[i].last_lunch = now;
+			args[i].gl = gl;
+			args[i].philo = &gl->philos[i];
+			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
+			pthread_detach(gl->philos[i].thread_id);
+			usleep(5);
+		}
 		i++;
 	}
 	i = 0;
-	while (i < (float) gl->number_of_philos / 2)
+	while (i < gl->number_of_philos)
 	{
-		gl->philos[2 * i + 1].started_at = timeval_to_ms(&now);
-		gl->philos[2 * i + 1].last_lunch = now;
-		args[2 * i + 1].gl = gl;
-		args[2 * i + 1].philo = &gl->philos[2 * i + 1];
-		pthread_create(&(gl->philos[2 * i + 1].thread_id), NULL, &philo_thread, &args[2 * i + 1]);
-		pthread_detach(gl->philos[2 * i + 1].thread_id);
+		if (i % 2 == 1)
+		{
+			gl->philos[i].started_at = timeval_to_ms(&now);
+			gl->philos[i].last_lunch = now;
+			args[i].gl = gl;
+			args[i].philo = &gl->philos[i];
+			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
+			pthread_detach(gl->philos[i].thread_id);
+			usleep(5);
+		}
 		i++;
 	}
 	return (0);
@@ -75,16 +85,19 @@ void			start_checker(t_global *gl)
 {
 	int				i;
 	struct timeval	now;
-	unsigned long 	time;
+	long long 	time;
 	int				status_meal;
+	long long 	ref;
 
+	ref = gl->time_to_die;
 	while (1)
 	{
 		i = 0;
 		while (i < gl->number_of_philos)
 		{
 			gettimeofday(&now, NULL);
-			if ((time = (timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch))) >= gl->time_to_die)
+			time = timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch);
+			if (time >= ref)
 			{
 				print_death(gl->philos[i].philo_number, timeval_to_ms(&now)- gl->philos[i].started_at, gl);
 				return ;
@@ -112,17 +125,17 @@ void			kill_philos(t_global *gl)
 
 	i = 0;
 	while (i < gl->number_of_philos)
+	{
 		gl->philos[i++].status =  0;
-	sem_close(gl->philos[0].forks);
+		//pthread_join(gl->philos[i].thread_id, NULL);
+	}
 	sem_unlink("philo_forks");
+	sem_unlink("philo_print");
 }
 
 int				main(int argc, char *argv[])
 {
-	int				i;
 	t_global		gl;
-
-	i = 0;
 	if (check_vars(argc, argv) == 0)
 	{
 		printf("Parse error");

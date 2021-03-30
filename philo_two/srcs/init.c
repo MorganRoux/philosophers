@@ -6,20 +6,11 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 23:03:58 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 20:35:53 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-sem_t			*init_forks(t_global *gl)
-{
-	sem_t	*forks;
-
-	if ((forks = sem_open("philo_forks", O_CREAT, S_IRWXU, gl->number_of_philos)) == SEM_FAILED)
-		return (NULL);
-	return (forks);
-}
 
 t_philo			*init_philos(t_global *gl, sem_t *forks)
 {
@@ -39,9 +30,19 @@ t_philo			*init_philos(t_global *gl, sem_t *forks)
 	return (philos);
 }
 
+sem_t			*init_forks(t_global *gl)
+{
+	sem_t	*forks;
+
+	if ((forks = sem_open("philo_forks", O_CREAT, S_IRWXU, gl->number_of_philos)) == SEM_FAILED)
+		return (NULL);
+	return (forks);
+}
+
 int				init_gl(t_global *gl, int argc, char *argv[])
 {
-	pthread_mutex_init(&gl->mutex_print, NULL);
+	if ((gl->mutex_print = sem_open("philo_print", O_CREAT, S_IRWXU, 1)) == SEM_FAILED)
+		return (-1);
 	gl->number_of_philos = extract_number_of_philosophers(argc, argv);
 	gl->time_to_sleep = extract_time_to_sleep(argc, argv);
 	gl->time_to_eat = extract_time_to_eat(argc, argv);
@@ -55,6 +56,7 @@ int				init(t_global *gl, int argc, char *argv[])
 	sem_t	*forks;
 
 	sem_unlink("philo_forks");
+	sem_unlink("philo_print");
 	if (init_gl(gl, argc, argv) == -1)
 		return (-1);
 	if ((forks = init_forks(gl)) == NULL)
@@ -63,4 +65,3 @@ int				init(t_global *gl, int argc, char *argv[])
 		return (-1);
 	return (0);
 }
-
