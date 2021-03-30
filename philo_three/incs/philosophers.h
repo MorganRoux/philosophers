@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:24:19 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 23:46:56 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_global
 	long long		time_to_sleep;
 	int				number_of_philos;
 	int				number_of_meals;
-	sem_t			*mutex_print;
+	sem_t			*sem_print;
 }					t_global;
 
 typedef struct 		s_thread_args

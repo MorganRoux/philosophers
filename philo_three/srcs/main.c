@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:25:57 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 23:44:11 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,30 @@ void kill_philos(t_global *gl)
 	sem_unlink("philo_print");
 }
 
+void	wait_philos(t_global*gl)
+{
+	int		i;
+	int		status;
+	int		ret;
+
+	status = 1;
+	while (status)
+	{
+		i = 0;
+		while (i < gl->number_of_philos)
+		{
+			if (waitpid(gl->philos[i].pid, &ret, WNOHANG) != 0)
+			{
+				if (WEXITSTATUS(ret) == 2)
+					return ;
+			}
+			ft_usleep(50);
+			i++;
+		}
+	}
+
+}
+
 int main(int argc, char *argv[])
 {
 	t_global	gl;
@@ -86,12 +110,7 @@ int main(int argc, char *argv[])
 	if (init(&gl, argc, argv) == -1)
 		return (0);
 	start_philos(&gl);
-	while (i < gl.number_of_philos)
-	{
-		waitpid(gl.philos[i].pid, NULL, 0);
-		//pthread_join(gl->philos[i].thread_id, NULL);
-	}
+	wait_philos(&gl);
 	kill_philos(&gl);
-	//pthread_mutex_unlock(&gl.mutex_print);
 	return (0);
 }

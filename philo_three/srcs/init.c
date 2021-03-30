@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:22:07 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 23:46:56 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ sem_t			*init_forks(t_global *gl)
 
 int				init_gl(t_global *gl, int argc, char *argv[])
 {
-	if ((gl->mutex_print = sem_open("philo_print", O_CREAT, S_IRWXU, 1)) == SEM_FAILED)
+	if ((gl->sem_print = sem_open("philo_print", O_CREAT, S_IRWXU, 1)) == SEM_FAILED)
 		return (-1);
 	gl->number_of_philos = extract_number_of_philosophers(argc, argv);
 	gl->time_to_sleep = extract_time_to_sleep(argc, argv);
