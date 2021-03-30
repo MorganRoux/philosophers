@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:01:34 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 23:26:09 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			launch_checker(t_thread_args *p_args, pthread_t *checker_id)
 	pthread_detach(*checker_id);
 }
 
-void			*philo_thread(void *arg)
+void			*philo_process(void *arg)
 {
 	t_thread_args	*p_args;
 	struct timeval	tp;
@@ -73,10 +73,10 @@ void			*philo_thread(void *arg)
 		if (p_args->philo->status == 1)
 			think(p_args->philo, p_args->gl);
 	}
-	printf("==out %d\n", p_args->philo->philo_number);
 	sem_close(p_args->philo->forks);
 	sem_unlink("philo_forks");
 	sem_close(p_args->gl->mutex_print);
 	sem_unlink("philo_print");
+	exit(0);
 	return (NULL);
 }

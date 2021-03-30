@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 22:58:28 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 23:25:57 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int start_philos(t_global *gl)
 			gl->philos[i].last_lunch = now;
 			args[i].gl = gl;
 			args[i].philo = &gl->philos[i];
-			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
-			pthread_detach(gl->philos[i].thread_id);
+			if ((gl->philos[i].pid = fork()) < 0)
+				return (-1);
+			else if (gl->philos[i].pid == 0)
+				philo_process(&args[i]);
 			usleep(5);
 		}
 		i++;
@@ -45,8 +47,10 @@ int start_philos(t_global *gl)
 			gl->philos[i].last_lunch = now;
 			args[i].gl = gl;
 			args[i].philo = &gl->philos[i];
-			pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
-			pthread_detach(gl->philos[i].thread_id);
+			if ((gl->philos[i].pid = fork()) < 0)
+				return (-1);
+			else if (gl->philos[i].pid == 0)
+				philo_process(&args[i]);
 			usleep(5);
 		}
 		i++;
@@ -84,7 +88,7 @@ int main(int argc, char *argv[])
 	start_philos(&gl);
 	while (i < gl.number_of_philos)
 	{
-		pthread_join(gl.philos[i].thread_id, NULL);
+		waitpid(gl.philos[i].pid, NULL, 0);
 		//pthread_join(gl->philos[i].thread_id, NULL);
 	}
 	kill_philos(&gl);
