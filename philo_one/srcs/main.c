@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/25 20:31:30 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:53:14 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,23 @@ void			start_checker(t_global *gl)
 {
 	int				i;
 	struct timeval	now;
-	long 	time;
+	long long 	time;
 	int				status_meal;
-	long 	ref;
+	long long 	ref;
 
-	ref = (long) gl->time_to_die;
-printf("%ld", gl->time_to_die);
+	ref = gl->time_to_die;
+printf("%lld", gl->time_to_die);
 	while (1)
 	{
 		i = 0;
 		while (i < gl->number_of_philos)
 		{
 			gettimeofday(&now, NULL);
-			time = (long) timeval_to_ms(&now) - (long) timeval_to_ms(&gl->philos[i].last_lunch);
+			time = timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch);
 			if (time >= ref)
 			{
-				printf("==%ld==", time);
-				printf("==%lu==%lu==\n", timeval_to_ms(&now), timeval_to_ms(&gl->philos[i].last_lunch));
+				printf("==%lld==", time);
+				printf("==%lld==%lld==\n", timeval_to_ms(&now), timeval_to_ms(&gl->philos[i].last_lunch));
 				print_death(gl->philos[i].philo_number, timeval_to_ms(&now)- gl->philos[i].started_at, gl);
 				return ;
 			}

@@ -6,13 +6,13 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:44:25 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 21:23:48 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:51:57 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_usleep(unsigned long n)
+void	ft_usleep(long long n)
 {
 	struct timeval	start;
 	struct timeval	step;
@@ -22,21 +22,21 @@ void	ft_usleep(unsigned long n)
 	{
 		usleep(50);
 		gettimeofday(&step, NULL);
-		if ((size_t)(((size_t)(step.tv_sec - start.tv_sec)) * 1000000 +
-			((size_t)(step.tv_usec - start.tv_usec))) > n)
+		if ((long long)(((long long)(step.tv_sec - start.tv_sec)) * 1000000 +
+			((long long)(step.tv_usec - start.tv_usec))) > n)
 			break ;
 	}
 }
 
-void			print_death(int philo_number, unsigned long death_time, t_global *gl)
+void			print_death(int philo_number, long long death_time, t_global *gl)
 {
 	pthread_mutex_lock(&gl->mutex_print);
-	printf("Philo %d died at %lu\n",  philo_number, death_time);
+	printf("Philo %d died at %lld\n",  philo_number, death_time);
 }
 
-void			print_end(int max_meal, unsigned long end_time, t_global *gl)
+void			print_end(int max_meal, long long end_time, t_global *gl)
 {
 	pthread_mutex_lock(&gl->mutex_print);
-	printf("All Philosphers ate %d meals at %lu.\n",  max_meal, end_time);
+	printf("All Philosphers ate %d meals at %lld.\n",  max_meal, end_time);
 }
 

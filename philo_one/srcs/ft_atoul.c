@@ -26,10 +26,10 @@ int				is_base(char *base, char c)
 
 int				ft_atoul(char const *str)
 {
-	unsigned long	total;
-	unsigned long	signe;
-	unsigned long	i;
-	unsigned long	mult;
+	long long	total;
+	long long	signe;
+	long long	i;
+	long long	mult;
 
 	mult = 1;
 	i = 0;
@@ -45,7 +45,7 @@ int				ft_atoul(char const *str)
 		i++;
 	while (0 < i)
 	{
-		total += mult * (unsigned long) (str[i - 1] - '0');
+		total += mult * (long long) (str[i - 1] - '0');
 		mult = mult * 10;
 		i--;
 	}
