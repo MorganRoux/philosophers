@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 19:53:14 by mroux            ###   ########.fr       */
+/*   Updated: 2021/03/30 20:05:15 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void			start_checker(t_global *gl)
 	long long 	ref;
 
 	ref = gl->time_to_die;
-printf("%lld", gl->time_to_die);
 	while (1)
 	{
 		i = 0;
@@ -96,8 +95,6 @@ printf("%lld", gl->time_to_die);
 			time = timeval_to_ms(&now) - timeval_to_ms(&gl->philos[i].last_lunch);
 			if (time >= ref)
 			{
-				printf("==%lld==", time);
-				printf("==%lld==%lld==\n", timeval_to_ms(&now), timeval_to_ms(&gl->philos[i].last_lunch));
 				print_death(gl->philos[i].philo_number, timeval_to_ms(&now)- gl->philos[i].started_at, gl);
 				return ;
 			}
@@ -124,13 +121,15 @@ void			kill_philos(t_global *gl)
 
 	i = 0;
 	while (i < gl->number_of_philos)
+	{
 		gl->philos[i++].status =  0;
+		pthread_join(gl->philos[i].thread_id, NULL);
+	}
 }
 
 int				main(int argc, char *argv[])
 {
 	t_global		gl;
-
 	if (check_vars(argc, argv) == 0)
 	{
 		printf("Parse error");
