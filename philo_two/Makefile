@@ -2,11 +2,13 @@ NAME		=	philo_two
 
 SRCS		=	srcs/main.c \
 				srcs/actions.c \
+				srcs/actions2.c \
 				srcs/time.c \
 				srcs/init.c \
 				srcs/utils.c \
 				srcs/ft_atoul.c \
 				srcs/parsing.c \
+				srcs/parsing2.c \
 				srcs/prints.c
 
 SRCS_PG		=	playground/main.c
