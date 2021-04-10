@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:44:25 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 19:51:57 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 20:54:58 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ void	ft_usleep(long long n)
 	}
 }
 
-void			print_death(int philo_number, long long death_time, t_global *gl)
+void	print_death(int philo_number, long long death_time, t_global *gl)
 {
 	pthread_mutex_lock(&gl->mutex_print);
-	printf("Philo %d died at %lld\n",  philo_number, death_time);
+	printf("Philo %d died at %lld\n", philo_number, death_time);
 }
 
-void			print_end(int max_meal, long long end_time, t_global *gl)
+void	print_end(int max_meal, long long end_time, t_global *gl)
 {
 	pthread_mutex_lock(&gl->mutex_print);
-	printf("All Philosphers ate %d meals at %lld.\n",  max_meal, end_time);
+	printf("All Philosphers ate %d meals at %lld.\n", max_meal, end_time);
 }
-

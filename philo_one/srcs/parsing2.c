@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:13:26 by mroux            ###   ########.fr       */
+/*   Created: 2021/03/14 18:53:15 by mroux             #+#    #+#             */
+/*   Updated: 2021/04/10 20:17:33 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long	timeval_to_ms(struct timeval *tp)
+int				is_digit(char *str)
 {
-	return ((long long)((long long)tp->tv_sec * 1000 +
-		(long long)tp->tv_usec / 1000));
+	if (str == NULL || *str == 0)
+		return (0);
+	while (*str != 0)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
-long long	get_diff_in_ms(struct timeval *tp1, struct timeval *tp2)
+int				check_vars(int argc, char *argv[])
 {
-	return (timeval_to_ms(tp2) - timeval_to_ms(tp1));
-}
+	int		i;
 
-long long	get_relative_time_in_ms(long long ref)
-{
-	struct timeval	tp;
-
-	gettimeofday(&tp, NULL);
-	return (timeval_to_ms(&tp) - ref);
+	if (argc != 5 && argc != 6)
+		return (0);
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_digit(argv[i]) || ft_atoul(argv[i]) <= 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }

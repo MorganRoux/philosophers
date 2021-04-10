@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/24 22:56:33 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 20:56:26 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_philo			*init_philos(t_global *gl, pthread_mutex_t *forks)
 	t_philo			*philos;
 
 	i = 0;
-	philos = (t_philo *) malloc(sizeof(t_philo) * gl->number_of_philos);
+	philos = (t_philo *)malloc(sizeof(t_philo) * gl->number_of_philos);
 	while (i < gl->number_of_philos)
 	{
 		philos[i].philo_number = i + 1;
@@ -31,27 +31,14 @@ t_philo			*init_philos(t_global *gl, pthread_mutex_t *forks)
 	return (philos);
 }
 
-// pthread_mutex_t	*init_forks(int argc, char *argv[])
-// {
-// 	pthread_mutex_t	*forks;
-// 	int				i;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	i = 0;
-// 	forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * 4);
-// 	while (i < 4)
-// 		pthread_mutex_init(&forks[i++], NULL);
-// 	return (forks);
-// }
-
 pthread_mutex_t	*init_forks(int argc, char *argv[])
 {
 	pthread_mutex_t	*forks;
 	int				i;
 
 	i = 0;
-	forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * extract_number_of_philosophers(argc, argv));
+	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) *
+		extract_number_of_philosophers(argc, argv));
 	while (i < extract_number_of_philosophers(argc, argv))
 		pthread_mutex_init(&forks[i++], NULL);
 	return (forks);
