@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:48:51 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 17:43:41 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void			*checker(void *arg)
 		time = timeval_to_ms(&now) - timeval_to_ms(&p_args->philo->last_lunch);
 		if (time >= ttd)
 		{
-			sem_wait(p_args->gl->sem_print);
+			// printf("HEY %d\n", p_args->philo->philo_number);
+			//sem_wait(p_args->gl->sem_print);
 			print_death(p_args->philo->philo_number, timeval_to_ms(&now) - p_args->philo->started_at, p_args->gl);
 			p_args->philo->status = 2;
 			return NULL;
@@ -73,7 +74,7 @@ void			*philo_process(void *arg)
 		if (p_args->philo->status == 1)
 			think(p_args->philo, p_args->gl);
 	}
-	printf("=out\n");
+	// printf("=out\n");
 	sem_close(p_args->philo->forks);
 	sem_unlink("philo_forks");
 	sem_close(p_args->gl->sem_print);

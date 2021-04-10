@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:46:56 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 17:41:00 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,15 @@ void		eat(t_philo *philo, t_global *gl)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	sem_wait(gl->sem_print);
 	if (philo->status)
 	{
+		sem_wait(gl->sem_print);
 		printf("%lld: %d is eating.\n", get_relative_time_in_ms(philo->started_at), philo->philo_number);
 		sem_post(gl->sem_print);
 		log_lunch(philo);
 		ft_usleep(gl->time_to_eat * 1000);
 		philo->meals++;
 	}
-	else
-		sem_post(gl->sem_print);
 	release_forks(philo);
 }
 
