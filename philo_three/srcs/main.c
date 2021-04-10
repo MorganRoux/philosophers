@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/03/30 23:44:11 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:09:41 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,20 @@ void kill_philos(t_global *gl)
 	i = 0;
 	while (i < gl->number_of_philos)
 	{
-		gl->philos[i++].status = 0;
-		//pthread_join(gl->philos[i].thread_id, NULL);
+		kill(gl->philos[i++].pid, SIGKILL);
 	}
 	sem_unlink("philo_forks");
 	sem_unlink("philo_print");
 }
 
-void	wait_philos(t_global*gl)
+void	wait_philos(t_global *gl)
 {
 	int		i;
-	int		status;
 	int		ret;
+	int		philo_finished;
 
-	status = 1;
-	while (status)
+	philo_finished = 0;
+	while (1)
 	{
 		i = 0;
 		while (i < gl->number_of_philos)
@@ -88,12 +87,17 @@ void	wait_philos(t_global*gl)
 			{
 				if (WEXITSTATUS(ret) == 2)
 					return ;
+				if (WEXITSTATUS(ret) == 3)
+					philo_finished++;
 			}
 			ft_usleep(50);
 			i++;
 		}
+		if (philo_finished >= gl->number_of_philos)
+			break;
 	}
-
+	printf("All philos ate %d meals.\n", gl->number_of_meals);
+	sem_wait(gl->sem_print);
 }
 
 int main(int argc, char *argv[])
@@ -111,6 +115,8 @@ int main(int argc, char *argv[])
 		return (0);
 	start_philos(&gl);
 	wait_philos(&gl);
-	kill_philos(&gl);
+	//kill_philos(&gl);
+	sem_unlink("philo_forks");
+	sem_unlink("philo_print");
 	return (0);
 }

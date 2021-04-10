@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 17:41:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:01:06 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void		eat(t_philo *philo, t_global *gl)
 		log_lunch(philo);
 		ft_usleep(gl->time_to_eat * 1000);
 		philo->meals++;
+		if ((gl->number_of_meals > 0) && (philo->meals >= gl->number_of_meals))
+			exit(3);
 	}
 	release_forks(philo);
 }
