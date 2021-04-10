@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 18:09:41 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:11:50 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 		return (0);
 	start_philos(&gl);
 	wait_philos(&gl);
-	//kill_philos(&gl);
+	kill_philos(&gl);
 	sem_unlink("philo_forks");
 	sem_unlink("philo_print");
 	return (0);
