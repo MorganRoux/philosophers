@@ -9,6 +9,7 @@ SRCS		=	srcs/main.c \
 				srcs/ft_atoul.c \
 				srcs/parsing.c \
 				srcs/parsing2.c \
+				srcs/checks.c \
 				srcs/prints.c
 
 SRCS_PG		=	playground/main.c

@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 21:06:26 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/11 14:46:31 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <semaphore.h>
 
 typedef struct		s_philo
@@ -55,6 +58,7 @@ typedef struct		s_thread_args
 int					init(t_global *gl, int argc, char *argv[]);
 sem_t				*init_forks(t_global *gl);
 t_philo				*init_philos(t_global *gl, sem_t *forks);
+void				start_checker(t_global *gl);
 
 /*
 ** Actions

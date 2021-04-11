@@ -5,43 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 22:51:49 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 21:02:18 by mroux            ###   ########.fr       */
+/*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
+/*   Updated: 2021/04/11 14:47:41 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_putstr_fd(char *s, int fd)
+long long	timeval_to_ms(struct timeval *tp)
 {
-	while (*s != 0)
-		write(fd, s++, 1);
+	return ((long long)((long long)tp->tv_sec * 1000 +
+		(long long)tp->tv_usec / 1000));
 }
 
-void	putnbr(unsigned int n, int fd)
+long long	get_diff_in_ms(struct timeval *tp1, struct timeval *tp2)
 {
-	char	*base;
-
-	base = ft_strdup("0123456789");
-	if (n == 0)
-		return ;
-	putnbr(n / 10, fd);
-	write(fd, &base[n % 10], 1);
-	free(base);
+	return (timeval_to_ms(tp2) - timeval_to_ms(tp1));
 }
 
-void	ft_putnbr_fd(int n, int fd)
+long long	get_relative_time_in_ms(long long ref)
 {
-	unsigned int	nbr;
+	struct timeval	tp;
 
-	if (n == 0)
-	{
-		write(fd, "0", 1);
-		return ;
-	}
-	nbr = (unsigned int)(n < 0) ? -n : n;
-	if (n < 0)
-		write(fd, "-", 1);
-	putnbr(nbr, fd);
-	return ;
+	gettimeofday(&tp, NULL);
+	return (timeval_to_ms(&tp) - ref);
 }
