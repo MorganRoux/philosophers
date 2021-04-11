@@ -6,21 +6,13 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 17:43:41 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/11 22:37:57 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-typedef struct 		s_args_checker
-{
-	int				*status;
-	sem_t			*sem_status;
-	long long		time_to_die;
-	t_philo			*philo;
-}					t_args_checker;
-
-void			*checker(void *arg)
+void				*checker(void *arg)
 {
 	t_thread_args	*p_args;
 	struct timeval	now;
@@ -36,23 +28,22 @@ void			*checker(void *arg)
 		time = timeval_to_ms(&now) - timeval_to_ms(&p_args->philo->last_lunch);
 		if (time >= ttd)
 		{
-			// printf("HEY %d\n", p_args->philo->philo_number);
-			//sem_wait(p_args->gl->sem_print);
-			print_death(p_args->philo->philo_number, timeval_to_ms(&now) - p_args->philo->started_at, p_args->gl);
+			print_death(p_args->philo->philo_number,
+				timeval_to_ms(&now) - p_args->philo->started_at, p_args->gl);
 			p_args->philo->status = 2;
-			return NULL;
+			return (NULL);
 		}
 		ft_usleep(50);
 	}
 }
 
-void			launch_checker(t_thread_args *p_args, pthread_t *checker_id)
+void				launch_checker(t_thread_args *p_args, pthread_t *checker_id)
 {
 	pthread_create(checker_id, NULL, &checker, p_args);
 	pthread_detach(*checker_id);
 }
 
-void			*philo_process(void *arg)
+void				*philo_process(void *arg)
 {
 	t_thread_args	*p_args;
 	struct timeval	tp;
@@ -74,11 +65,9 @@ void			*philo_process(void *arg)
 		if (p_args->philo->status == 1)
 			think(p_args->philo, p_args->gl);
 	}
-	// printf("=out\n");
 	sem_close(p_args->philo->forks);
 	sem_unlink("philo_forks");
 	sem_close(p_args->gl->sem_print);
 	sem_unlink("philo_print");
 	exit(p_args->philo->status);
-	return (NULL);
 }

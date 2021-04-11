@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   actions2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:53:21 by mroux            ###   ########.fr       */
+/*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
+/*   Updated: 2021/04/10 20:21:04 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long	timeval_to_ms(struct timeval *tp)
+void		log_lunch(t_philo *philo)
 {
-	return ((long long)((long long)tp->tv_sec * 1000 +
-		(long long)tp->tv_usec / 1000));
-}
+	struct timeval save;
 
-long long	get_diff_in_ms(struct timeval *tp1, struct timeval *tp2)
-{
-	return (timeval_to_ms(tp2) - timeval_to_ms(tp1));
-}
-
-long long	get_relative_time_in_ms(long long ref)
-{
-	struct timeval	tp;
-
-	gettimeofday(&tp, NULL);
-	return (timeval_to_ms(&tp) - ref);
+	save = philo->last_lunch;
+	gettimeofday(&philo->last_lunch, NULL);
 }
