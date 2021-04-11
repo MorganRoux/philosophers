@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 22:37:57 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/11 22:54:01 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void				*checker(void *arg)
 			print_death(p_args->philo->philo_number,
 				timeval_to_ms(&now) - p_args->philo->started_at, p_args->gl);
 			p_args->philo->status = 2;
-			return (NULL);
+			exit(2);
 		}
 		ft_usleep(50);
 	}
