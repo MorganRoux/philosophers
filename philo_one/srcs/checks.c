@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:52:54 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/11 14:34:30 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_time(t_global *gl, long long *time, int i,
 			struct timeval *now)
 {
 	gettimeofday(now, NULL);
-	*time = timeval_to_ms(&now) -
+	*time = timeval_to_ms(now) -
 		timeval_to_ms(&gl->philos[i].last_lunch);
 }
 

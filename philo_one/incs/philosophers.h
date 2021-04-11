@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:19:42 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/11 14:33:09 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_thread_args
 int					init(t_global *gl, int argc, char *argv[]);
 pthread_mutex_t		*init_forks(int argc, char *argv[]);
 t_philo				*init_philos(t_global *gl, pthread_mutex_t *forks);
+void				start_checker(t_global *gl);
 
 /*
 ** Actions
