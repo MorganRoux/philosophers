@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/13 22:07:21 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 23:01:19 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void		eat(t_philo *philo, t_global *gl)
 	sem_wait(gl->mutex_print);
 	if (philo->status)
 	{
+		sem_wait(philo->eating);
 		printf("%lld: %d is eating.\n",
 			get_relative_time_in_ms(philo->started_at), philo->philo_number);
 		sem_post(gl->mutex_print);
 		log_lunch(philo);
 		ft_usleep(gl->time_to_eat * 1000);
+		sem_post(philo->eating);
 		philo->meals++;
 		if (gl->number_of_meals > 0 && philo->meals >= gl->number_of_meals)
 			philo->status = 0;

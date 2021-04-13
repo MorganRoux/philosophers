@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 21:10:15 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:58:25 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ t_philo			*init_philos(t_global *gl, sem_t *forks)
 	while (i < gl->number_of_philos)
 	{
 		philos[i].philo_number = i + 1;
+		if ((philos[i].eating = sem_open("philo_eating",
+			O_CREAT, S_IRWXU, gl->number_of_philos)) == SEM_FAILED)
+			return (NULL);
+		sem_unlink("philo_eating");
 		philos[i].meals = 0;
 		philos[i].forks = forks;
 		philos[i].status = 1;

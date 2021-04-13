@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:34:30 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 23:14:39 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 int		check_meal(t_global *gl, int *status_meal, int i,
 	struct timeval *now)
 {
+	(void)now;
 	if (gl->number_of_meals != 0)
 	{
 		if (gl->philos[i].meals >= gl->number_of_meals)
 			(*status_meal)++;
 		else
 			*status_meal = 0;
-		if (*status_meal == gl->number_of_philos)
+		if (*status_meal >= gl->number_of_philos)
 		{
 			print_end(gl->number_of_meals,
 				timeval_to_ms(now) - gl->philos[i].started_at, gl);
@@ -56,6 +57,7 @@ void	start_checker(t_global *gl)
 			set_time(gl, &time, i, &now);
 			if (time >= ref)
 			{
+				sem_wait(gl->philos[i].eating);
 				print_death(gl->philos[i].philo_number,
 							timeval_to_ms(&now) - gl->philos[i].started_at, gl);
 				return ;
