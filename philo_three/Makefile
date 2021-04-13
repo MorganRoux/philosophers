@@ -10,6 +10,7 @@ SRCS		=	srcs/main.c \
 				srcs/parsing.c \
 				srcs/parsing2.c \
 				srcs/prints.c \
+				srcs/finished.c \
 				srcs/process.c
 
 SRCS_PG		=	playground/main.c

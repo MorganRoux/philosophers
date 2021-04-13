@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 22:43:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:18:46 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct		s_args_checker
 int					init(t_global *gl, int argc, char *argv[]);
 sem_t				*init_forks(t_global *gl);
 t_philo				*init_philos(t_global *gl, sem_t *forks);
+int					*init_finished(int n);
+int					test_finished(int *philo_finished, int n);
+int					test_exit(int ret, int *philo_finished, int i);
 
 /*
 ** Actions
