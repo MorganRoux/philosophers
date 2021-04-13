@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:34:30 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:44:54 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	start_checker(t_global *gl)
 			set_time(gl, &time, i, &now);
 			if (time >= ref)
 			{
+				pthread_mutex_lock(gl->philos[i].eating);
 				print_death(gl->philos[i].philo_number,
 							timeval_to_ms(&now) - gl->philos[i].started_at, gl);
 				return ;

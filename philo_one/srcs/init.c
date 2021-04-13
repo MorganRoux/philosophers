@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:06:23 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:56:26 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:45:23 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_philo			*init_philos(t_global *gl, pthread_mutex_t *forks)
 	{
 		philos[i].philo_number = i + 1;
 		philos[i].meals = 0;
+		philos[i].eating = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philos[i].eating, NULL);
 		philos[i].forks[0] = &forks[i % gl->number_of_philos];
 		philos[i].forks[1] = &forks[(i + 1) % gl->number_of_philos];
 		philos[i].status = 1;

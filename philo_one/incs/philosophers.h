@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:33:09 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:40:15 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_philo
 	int				meals;
 	long long		started_at;
 	pthread_mutex_t	*forks[2];
+	pthread_mutex_t *eating;
 	int				status;
 	void			*ret;
 }					t_philo;
