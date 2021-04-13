@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 22:54:30 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 21:27:22 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,38 @@ void	kill_philos(t_global *gl)
 	sem_unlink("philo_print");
 }
 
+int		*init_finished(int n)
+{
+	int		*ret;
+	int		i;
+
+	i = 0;
+	ret = malloc(n * sizeof(int));
+	while (i < n)
+		ret[i++] = 0;
+
+	return (ret);
+}
+
+int		test_finished(int *philo_finished, int n)
+{
+	int		i;
+	int		sum;
+
+	i = 0;
+	sum = 0;
+	while(i < n)
+		sum += philo_finished[i++];
+	return (sum >= n ? 1 : 0);
+}
+
 void	wait_philos(t_global *gl)
 {
 	int		i;
 	int		ret;
-	int		philo_finished;
+	int		*philo_finished;
 
-	philo_finished = 0;
+	philo_finished = init_finished(gl->number_of_philos);
 	while (1)
 	{
 		i = 0;
@@ -80,16 +105,20 @@ void	wait_philos(t_global *gl)
 			if (waitpid(gl->philos[i].pid, &ret, WNOHANG) != 0)
 			{
 				if (WEXITSTATUS(ret) == 2)
-					return ;
+				{
+					free(philo_finished);
+					return;
+				}
 				if (WEXITSTATUS(ret) == 3)
-					philo_finished++;
+					philo_finished[i] = 1;
 			}
 			ft_usleep(50);
 			i++;
 		}
-		if (philo_finished >= gl->number_of_philos)
+		if (test_finished(philo_finished, gl->number_of_philos))
 			break ;
 	}
+	free(philo_finished);
 	printf("All philos ate %d meals.\n", gl->number_of_meals);
 	sem_wait(gl->sem_print);
 }
