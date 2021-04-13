@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 21:07:37 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/13 22:07:21 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void		eat(t_philo *philo, t_global *gl)
 		log_lunch(philo);
 		ft_usleep(gl->time_to_eat * 1000);
 		philo->meals++;
+		if (gl->number_of_meals > 0 && philo->meals >= gl->number_of_meals)
+			philo->status = 0;
 	}
 	else
 		sem_post(gl->mutex_print);
