@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/13 22:49:53 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 20:07:03 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void				ft_putnbr_fd(int n, int fd);
 long long			timeval_to_ms(struct timeval *tp);
 long long			get_diff_in_ms(struct timeval *tp1, struct timeval *tp2);
 long long			get_relative_time_in_ms(long long ref);
+long long			get_time(t_global *gl, int i, struct timeval *now);
 
 /*
 ** Parsing

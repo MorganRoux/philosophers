@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:13:26 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 20:05:44 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ long long	get_relative_time_in_ms(long long ref)
 
 	gettimeofday(&tp, NULL);
 	return (timeval_to_ms(&tp) - ref);
+}
+
+long long	get_time(t_global *gl, int i,
+			struct timeval *now)
+{
+	long long	time;
+
+	gettimeofday(now, NULL);
+	time = timeval_to_ms(now) -
+		timeval_to_ms(&gl->philos[i].last_lunch);
+	return (time);
 }

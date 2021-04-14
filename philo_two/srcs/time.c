@@ -6,11 +6,22 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:47:41 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 20:07:05 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+long long	get_time(t_global *gl, int i,
+			struct timeval *now)
+{
+	long long	time;
+
+	gettimeofday(now, NULL);
+	time = timeval_to_ms(now) -
+		timeval_to_ms(&gl->philos[i].last_lunch);
+	return (time);
+}
 
 long long	timeval_to_ms(struct timeval *tp)
 {
