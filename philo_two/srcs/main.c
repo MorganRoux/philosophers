@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 14:43:10 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 19:31:20 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ void		*philo_thread(void *arg)
 		if (p_args->philo->status)
 			think(p_args->philo, p_args->gl);
 	}
-	sem_close(p_args->philo->forks);
-	sem_unlink("philo_forks");
-	sem_close(p_args->gl->mutex_print);
-	sem_unlink("philo_print");
 	return (NULL);
 }
 

@@ -6,11 +6,23 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/13 23:14:39 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 19:29:54 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int		check_meal_finished(int *status_meal, int n)
+{
+	int	i;
+	int	sum;
+
+	i = 0;
+	sum = 0;
+	while (i < n)
+		sum += status_meal[i++];
+	return ((sum >= n) ? 1 : 0);
+}
 
 int		check_meal(t_global *gl, int *status_meal, int i,
 	struct timeval *now)
@@ -19,10 +31,8 @@ int		check_meal(t_global *gl, int *status_meal, int i,
 	if (gl->number_of_meals != 0)
 	{
 		if (gl->philos[i].meals >= gl->number_of_meals)
-			(*status_meal)++;
-		else
-			*status_meal = 0;
-		if (*status_meal >= gl->number_of_philos)
+			status_meal[i] = 1;
+		if (check_meal_finished(status_meal, gl->number_of_philos))
 		{
 			print_end(gl->number_of_meals,
 				timeval_to_ms(now) - gl->philos[i].started_at, gl);
@@ -40,14 +50,27 @@ void	set_time(t_global *gl, long long *time, int i,
 		timeval_to_ms(&gl->philos[i].last_lunch);
 }
 
+int		*init_meal(int n)
+{
+	int	*p;
+	int	i;
+
+	i = 0;
+	p = (int *)malloc(n * sizeof(int));
+	while (i < n)
+		p[i++] = 0;
+	return (p);
+}
+
 void	start_checker(t_global *gl)
 {
 	int				i;
 	struct timeval	now;
 	long long		time;
-	int				status_meal;
+	int				*status_meal;
 	long long		ref;
 
+	status_meal = init_meal(gl->number_of_meals);
 	ref = gl->time_to_die;
 	while (1)
 	{
@@ -55,14 +78,14 @@ void	start_checker(t_global *gl)
 		while (i < gl->number_of_philos)
 		{
 			set_time(gl, &time, i, &now);
-			if (time >= ref)
+			if (time >= ref && gl->philos->status == 1)
 			{
 				sem_wait(gl->philos[i].eating);
 				print_death(gl->philos[i].philo_number,
 							timeval_to_ms(&now) - gl->philos[i].started_at, gl);
 				return ;
 			}
-			if (check_meal(gl, &status_meal, i, &now))
+			if (check_meal(gl, status_meal, i, &now))
 				return ;
 			i++;
 		}
