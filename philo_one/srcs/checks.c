@@ -6,13 +6,13 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/14 19:50:36 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/14 20:01:49 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		check_meal_finished(int *status_meal, int n)
+int			check_meal_finished(int *status_meal, int n)
 {
 	int	i;
 	int	sum;
@@ -24,7 +24,7 @@ int		check_meal_finished(int *status_meal, int n)
 	return ((sum >= n) ? 1 : 0);
 }
 
-int		check_meal(t_global *gl, int *status_meal, int i,
+int			check_meal(t_global *gl, int *status_meal, int i,
 	struct timeval *now)
 {
 	(void)now;
@@ -42,15 +42,18 @@ int		check_meal(t_global *gl, int *status_meal, int i,
 	return (0);
 }
 
-void	set_time(t_global *gl, long long *time, int i,
+long long	get_time(t_global *gl, int i,
 			struct timeval *now)
 {
+	long long	time;
+
 	gettimeofday(now, NULL);
-	*time = timeval_to_ms(now) -
+	time = timeval_to_ms(now) -
 		timeval_to_ms(&gl->philos[i].last_lunch);
+	return (time);
 }
 
-int		*init_meal(int n)
+int			*init_meal(int n)
 {
 	int	*p;
 	int	i;
@@ -62,11 +65,10 @@ int		*init_meal(int n)
 	return (p);
 }
 
-void	start_checker(t_global *gl)
+void		start_checker(t_global *gl)
 {
 	int				i;
 	struct timeval	now;
-	long long		time;
 	int				*status_meal;
 	long long		ref;
 
@@ -77,8 +79,7 @@ void	start_checker(t_global *gl)
 		i = 0;
 		while (i < gl->number_of_philos)
 		{
-			set_time(gl, &time, i, &now);
-			if (time >= ref)
+			if (get_time(gl, i, &now) >= ref && gl->philos[i].status == 1)
 			{
 				pthread_mutex_lock(gl->philos[i].eating);
 				print_death(gl->philos[i].philo_number,
