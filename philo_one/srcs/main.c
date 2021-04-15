@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/15 16:22:43 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:25:24 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	clean_gl(t_global *gl)
 		clean_philo(&gl->philos[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&gl->mutex_print);
 
 }
 
