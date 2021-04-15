@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/15 15:18:49 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:19:15 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	launch(t_global *gl, int i, struct timeval *now, t_thread_args *args)
 	args[i].philo = &gl->philos[i];
 	pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
 	pthread_detach(gl->philos[i].thread_id);
-	usleep(10);
 }
 
 int		start_philos(t_global *gl)
@@ -63,7 +62,7 @@ int		start_philos(t_global *gl)
 			launch(gl, i, &now, args);
 		i++;
 	}
-	ft_usleep(10);
+	ft_usleep(1000);
 	i = 0;
 	while (i < gl->number_of_philos)
 	{
@@ -86,6 +85,27 @@ void	kill_philos(t_global *gl)
 	}
 }
 
+
+void	clean_philo(t_philo *philo)
+{
+	pthread_mutex_destroy(philo->eating);
+}
+
+void	clean_gl(t_global *gl)
+{
+	int	i;
+
+	i = 0;
+
+	while (i < gl->number_of_philos)
+	{
+		pthread_mutex_destroy(&gl->forks[i]);
+		clean_philo(&gl->philos[i]);
+		i++;
+	}
+
+}
+
 int		main(int argc, char *argv[])
 {
 	t_global	gl;
@@ -100,5 +120,6 @@ int		main(int argc, char *argv[])
 	start_philos(&gl);
 	start_checker(&gl);
 	kill_philos(&gl);
+	clean_gl(&gl);
 	return (0);
 }

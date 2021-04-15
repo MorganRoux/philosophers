@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/14 20:06:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:04:21 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct		s_philo
 	pthread_mutex_t	*forks[2];
 	pthread_mutex_t *eating;
 	int				status;
-	void			*ret;
 }					t_philo;
 
 typedef struct		s_global
@@ -40,6 +39,7 @@ typedef struct		s_global
 	int				number_of_philos;
 	int				number_of_meals;
 	pthread_mutex_t	mutex_print;
+	pthread_mutex_t	*forks;
 }					t_global;
 
 typedef struct		s_thread_args
@@ -54,7 +54,7 @@ typedef struct		s_thread_args
 
 int					init(t_global *gl, int argc, char *argv[]);
 pthread_mutex_t		*init_forks(int argc, char *argv[]);
-t_philo				*init_philos(t_global *gl, pthread_mutex_t *forks);
+t_philo				*init_philos(t_global *gl);
 void				start_checker(t_global *gl);
 
 /*
