@@ -16,7 +16,7 @@ SRCS_PG		=	playground/main.c
 
 OBJS		=	$(SRCS:.c=.o)
 CC			=	clang
-FLAGS		=	-Wall -Wextra -Werror -g -pthread
+FLAGS		=	-Wall -Wextra -Werror -g -pthread -fsanitize=address -g3
 INC_PATH	=	-I./incs
 COMPILE		=	$(CC) $(FLAGS) $(INC_PATH)
 

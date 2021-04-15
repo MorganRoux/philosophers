@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/14 19:31:20 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/15 15:32:40 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void		kill_philos(t_global *gl)
 
 	i = 0;
 	while (i < gl->number_of_philos)
-		gl->philos[i++].status = 0;
+	{
+		gl->philos[i].status = 0;
+		pthread_join(gl->philos[i++].thread_id, NULL);
+	}
 	sem_unlink("philo_forks");
 	sem_unlink("philo_print");
 }
