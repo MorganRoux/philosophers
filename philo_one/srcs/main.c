@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/10 20:47:05 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/15 15:18:49 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	launch(t_global *gl, int i, struct timeval *now, t_thread_args *args)
 	args[i].philo = &gl->philos[i];
 	pthread_create(&(gl->philos[i].thread_id), NULL, &philo_thread, &args[i]);
 	pthread_detach(gl->philos[i].thread_id);
-	usleep(5);
+	usleep(10);
 }
 
 int		start_philos(t_global *gl)
@@ -63,6 +63,7 @@ int		start_philos(t_global *gl)
 			launch(gl, i, &now, args);
 		i++;
 	}
+	ft_usleep(10);
 	i = 0;
 	while (i < gl->number_of_philos)
 	{
@@ -80,8 +81,8 @@ void	kill_philos(t_global *gl)
 	i = 0;
 	while (i < gl->number_of_philos)
 	{
-		gl->philos[i++].status = 0;
-		pthread_join(gl->philos[i].thread_id, NULL);
+		gl->philos[i].status = 0;
+		pthread_join(gl->philos[i++].thread_id, NULL);
 	}
 }
 
