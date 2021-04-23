@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 16:22:25 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:23:46 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,23 @@ void	kill_philos(t_global *gl)
 	}
 }
 
-void	clean_philo(t_philo *philo)
-{
-	pthread_mutex_destroy(philo->eating);
-}
-
 void	clean_gl(t_global *gl)
 {
 	int	i;
 
 	i = 0;
-
 	while (i < gl->number_of_philos)
 	{
 		pthread_mutex_destroy(&gl->forks[i]);
-		clean_philo(&gl->philos[i]);
+		pthread_mutex_destroy(&gl->philos[i]->eating);
 		i++;
 	}
 	pthread_mutex_destroy(&gl->mutex_print);
-
 }
 
 int		main(int argc, char *argv[])
 {
-	t_global	gl;
+	t_global		gl;
 	t_thread_args	*args;
 
 	if (check_vars(argc, argv) == 0)
