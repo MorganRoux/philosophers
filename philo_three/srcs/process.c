@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 14:41:38 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:18:24 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,20 @@ void				*checker(void *arg)
 		}
 		ft_usleep(50);
 	}
-	//printf("checker out");
 	return (NULL);
 }
 
 void				launch_checker(t_thread_args *p_args, pthread_t *checker_id)
 {
 	pthread_create(checker_id, NULL, &checker, p_args);
-	//pthread_detach(*checker_id);
+}
+
+void				close_process(t_thread_args	*p_args)
+{
+	sem_close(p_args->philo->forks);
+	sem_unlink("philo_forks");
+	sem_close(p_args->gl->sem_print);
+	sem_unlink("philo_print");
 }
 
 void				*philo_process(void *arg)
@@ -67,11 +73,7 @@ void				*philo_process(void *arg)
 		if (p_args->philo->status == 1)
 			think(p_args->philo, p_args->gl);
 	}
-	sem_close(p_args->philo->forks);
-	sem_unlink("philo_forks");
-	sem_close(p_args->gl->sem_print);
-	sem_unlink("philo_print");
+	close_process(args);
 	pthread_join(checker_id, NULL);
-	//printf("!!!!!yooo %d!!!!", p_args->philo->philo_number);
 	exit(p_args->philo->status);
 }

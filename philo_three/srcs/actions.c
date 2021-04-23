@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 14:06:32 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:16:50 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		eat(t_philo *philo, t_global *gl)
 		{
 			release_forks(philo);
 			philo->status = 3;
-			return;
+			return ;
 		}
 	}
 	release_forks(philo);
