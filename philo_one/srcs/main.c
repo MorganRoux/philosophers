@@ -6,34 +6,11 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 16:23:46 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:25:44 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	*philo_thread(void *arg)
-{
-	t_thread_args	*p_args;
-	struct timeval	tp;
-
-	p_args = (t_thread_args *)arg;
-	gettimeofday(&tp, NULL);
-	while (p_args->philo->status)
-	{
-		if (p_args->philo->status)
-			take_forks(p_args->philo, p_args->gl, 0);
-		if (p_args->philo->status)
-			take_forks(p_args->philo, p_args->gl, 1);
-		if (p_args->philo->status)
-			eat(p_args->philo, p_args->gl);
-		if (p_args->philo->status)
-			do_sleep(p_args->philo, p_args->gl);
-		if (p_args->philo->status)
-			think(p_args->philo, p_args->gl);
-	}
-	return (NULL);
-}
 
 void	launch(t_global *gl, int i, struct timeval *now, t_thread_args *args)
 {
@@ -89,7 +66,7 @@ void	clean_gl(t_global *gl)
 	while (i < gl->number_of_philos)
 	{
 		pthread_mutex_destroy(&gl->forks[i]);
-		pthread_mutex_destroy(&gl->philos[i]->eating);
+		pthread_mutex_destroy(gl->philos[i].eating);
 		i++;
 	}
 	pthread_mutex_destroy(&gl->mutex_print);

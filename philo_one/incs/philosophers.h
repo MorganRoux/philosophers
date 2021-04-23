@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:33:24 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/15 16:04:21 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:24:53 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				take_forks(t_philo *philo, t_global *gl, int fork);
 void				eat(t_philo *philo, t_global *gl);
 void				do_sleep(t_philo *philo, t_global *gl);
 void				think(t_philo *philo, t_global *gl);
-
+void				*philo_thread(void *arg);
 /*
 ** Utils
 */
