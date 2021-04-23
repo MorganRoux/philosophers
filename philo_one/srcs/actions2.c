@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 16:24:36 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:26:54 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		log_lunch(t_philo *philo)
 	gettimeofday(&philo->last_lunch, NULL);
 }
 
-void	*philo_thread(void *arg)
+void		*philo_thread(void *arg)
 {
 	t_thread_args	*p_args;
 	struct timeval	tp;
