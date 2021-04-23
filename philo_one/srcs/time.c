@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:48:07 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/14 20:05:44 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 15:57:53 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 long long	timeval_to_ms(struct timeval *tp)
 {
-	return ((long long)((long long)tp->tv_sec * 1000 +
-		(long long)tp->tv_usec / 1000));
+	return ((long long)((long long)tp->tv_sec * (long long)1000 +
+		(long long)tp->tv_usec / (long long)1000));
 }
 
 long long	get_diff_in_ms(struct timeval *tp1, struct timeval *tp2)
