@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 11:48:47 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:21:43 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ int			*init_meal(int n)
 	return (p);
 }
 
+void		death(t_global *gl, struct timeval *now, int *status_meal)
+{
+	pthread_mutex_lock(gl->philos[i].eating);
+	print_death(gl->philos[i].philo_number,
+				timeval_to_ms(&now) - gl->philos[i].started_at, gl);
+	free(status_meal);
+}
+
 void		start_checker(t_global *gl)
 {
 	int				i;
@@ -70,10 +78,7 @@ void		start_checker(t_global *gl)
 		{
 			if (get_time(gl, i, &now) >= ref && gl->philos[i].status == 1)
 			{
-				pthread_mutex_lock(gl->philos[i].eating);
-				print_death(gl->philos[i].philo_number,
-							timeval_to_ms(&now) - gl->philos[i].started_at, gl);
-				free(status_meal);
+				death(gl, &now, status_meal);
 				return ;
 			}
 			if (check_meal(gl, status_meal, i, &now))

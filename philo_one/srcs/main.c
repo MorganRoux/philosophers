@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 15:23:24 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:22:25 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ int		start_philos(t_global *gl, t_thread_args *args)
 	int				i;
 	struct timeval	now;
 
-
 	i = 0;
 	gettimeofday(&now, NULL);
-
 	while (i < gl->number_of_philos)
 	{
 		if (i % 2 == 0)
@@ -82,7 +80,6 @@ void	kill_philos(t_global *gl)
 		pthread_join(gl->philos[i++].thread_id, NULL);
 	}
 }
-
 
 void	clean_philo(t_philo *philo)
 {
