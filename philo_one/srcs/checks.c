@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/15 15:49:00 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 11:48:47 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		start_checker(t_global *gl)
 	long long		ref;
 
 	ref = gl->time_to_die;
-	status_meal = init_meal(gl->number_of_meals);
+	status_meal = init_meal(gl->number_of_philos);
 	while (1)
 	{
 		i = 0;
