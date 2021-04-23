@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 16:18:24 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:19:06 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void				launch_checker(t_thread_args *p_args, pthread_t *checker_id)
 	pthread_create(checker_id, NULL, &checker, p_args);
 }
 
-void				close_process(t_thread_args	*p_args)
+void				close_process(t_thread_args *p_args)
 {
 	sem_close(p_args->philo->forks);
 	sem_unlink("philo_forks");
