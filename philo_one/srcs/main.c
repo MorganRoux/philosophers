@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 21:55:44 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/15 16:25:24 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 15:23:24 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,15 @@ void	launch(t_global *gl, int i, struct timeval *now, t_thread_args *args)
 	pthread_detach(gl->philos[i].thread_id);
 }
 
-int		start_philos(t_global *gl)
+int		start_philos(t_global *gl, t_thread_args *args)
 {
 	int				i;
 	struct timeval	now;
-	t_thread_args	*args;
+
 
 	i = 0;
 	gettimeofday(&now, NULL);
-	if (!(args = (t_thread_args *)
-			malloc(gl->number_of_philos * sizeof(t_thread_args))))
-		return (-1);
+
 	while (i < gl->number_of_philos)
 	{
 		if (i % 2 == 0)
@@ -110,6 +108,7 @@ void	clean_gl(t_global *gl)
 int		main(int argc, char *argv[])
 {
 	t_global	gl;
+	t_thread_args	*args;
 
 	if (check_vars(argc, argv) == 0)
 	{
@@ -118,9 +117,13 @@ int		main(int argc, char *argv[])
 	}
 	if (init(&gl, argc, argv) == -1)
 		return (0);
-	start_philos(&gl);
+	if (!(args = (t_thread_args *)
+			malloc(gl.number_of_philos * sizeof(t_thread_args))))
+		return (-1);
+	start_philos(&gl, args);
 	start_checker(&gl);
 	kill_philos(&gl);
 	clean_gl(&gl);
+	free(args);
 	return (0);
 }
