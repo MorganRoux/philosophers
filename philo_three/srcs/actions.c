@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 00:57:18 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/13 22:02:48 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 14:06:32 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void		eat(t_philo *philo, t_global *gl)
 		if ((gl->number_of_meals > 0) && (philo->meals >= gl->number_of_meals))
 		{
 			release_forks(philo);
-			exit(3);
+			philo->status = 3;
+			return;
 		}
 	}
 	release_forks(philo);
