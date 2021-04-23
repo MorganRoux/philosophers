@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/23 16:19:06 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:27:40 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void				*philo_process(void *arg)
 		if (p_args->philo->status == 1)
 			think(p_args->philo, p_args->gl);
 	}
-	close_process(args);
+	close_process(p_args);
 	pthread_join(checker_id, NULL);
 	exit(p_args->philo->status);
 }
