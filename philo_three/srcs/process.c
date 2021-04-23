@@ -6,7 +6,7 @@
 /*   By: mroux <mroux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 22:31:02 by mroux             #+#    #+#             */
-/*   Updated: 2021/04/11 22:54:01 by mroux            ###   ########.fr       */
+/*   Updated: 2021/04/23 14:41:38 by mroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void				*checker(void *arg)
 	p_args = (t_thread_args *)arg;
 	ttd = p_args->gl->time_to_die;
 	gettimeofday(&p_args->philo->last_lunch, NULL);
-	while (1)
+	while (p_args->philo->status == 1)
 	{
 		gettimeofday(&now, NULL);
 		time = timeval_to_ms(&now) - timeval_to_ms(&p_args->philo->last_lunch);
@@ -35,12 +35,14 @@ void				*checker(void *arg)
 		}
 		ft_usleep(50);
 	}
+	//printf("checker out");
+	return (NULL);
 }
 
 void				launch_checker(t_thread_args *p_args, pthread_t *checker_id)
 {
 	pthread_create(checker_id, NULL, &checker, p_args);
-	pthread_detach(*checker_id);
+	//pthread_detach(*checker_id);
 }
 
 void				*philo_process(void *arg)
@@ -69,5 +71,7 @@ void				*philo_process(void *arg)
 	sem_unlink("philo_forks");
 	sem_close(p_args->gl->sem_print);
 	sem_unlink("philo_print");
+	pthread_join(checker_id, NULL);
+	//printf("!!!!!yooo %d!!!!", p_args->philo->philo_number);
 	exit(p_args->philo->status);
 }
